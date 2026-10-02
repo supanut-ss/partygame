@@ -254,8 +254,8 @@ function App() {
             <div className="eyebrow"><span className="eyebrow-dot" /> เว็บรวมเกมสำหรับสายปาร์ตี้</div>
             <h1 id="hero-title">วงพร้อมแล้ว<br />เกมไหนก็<span className="hero-highlight">สนุก</span></h1>
             <p className="hero-description">
-              รวมเกมไว้ในที่เดียว ชวนเพื่อนมาสนุกด้วยกันได้ง่าย ๆ
-              เปิดเล่นได้ทั้งมือถือ แท็บเล็ต และคอมพิวเตอร์
+              รวม 6 เกมปาร์ตี้ไว้เล่นผลัดกันบนเครื่องเดียว ชวนเพื่อนใส่ชื่อแล้วเริ่มเล่นได้ทันที
+              รองรับทั้งมือถือ แท็บเล็ต และคอมพิวเตอร์
             </p>
             <div className="hero-actions">
               <a className="button button--primary" href="#games">
@@ -271,7 +271,7 @@ function App() {
                   <path d="m3.5 8.3 2.8 2.8 6.2-6.2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </span>
-              <span>รายละเอียดเกมจะทยอยเพิ่มในขั้นถัดไป</span>
+              <span>ไม่ต้องสมัครสมาชิก เพิ่มชื่อเพื่อนแล้วเริ่มเล่นได้เลย</span>
             </div>
           </div>
 

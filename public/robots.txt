@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://partygame.drivetodev.online/sitemap.xml
