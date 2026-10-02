@@ -260,7 +260,9 @@ button:focus-visible {
 .button {
   min-height: 56px;
   padding: 0 25px;
+  border: 0;
   font-size: 1rem;
+  white-space: nowrap;
 }
 
 .button--primary {
@@ -1957,6 +1959,7 @@ button:focus-visible {
 
 .player-loss-stats-reset {
   flex: 0 0 auto;
+  min-height: 44px;
   padding: 8px 11px;
   border: 1px solid #ece8f0;
   border-radius: 999px;
@@ -3696,6 +3699,13 @@ button.mine-tile:focus-visible {
   align-items: center;
   justify-content: center;
   gap: 10px 17px;
+}
+
+.loss-actions .button,
+.last-finger-result-actions .button,
+.secret-range-result-actions .button,
+.big-card-result-actions .button {
+  flex: 0 0 auto;
 }
 
 .change-players-button {
