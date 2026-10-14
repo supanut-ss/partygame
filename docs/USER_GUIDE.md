@@ -9,7 +9,7 @@
 
 ## 1. What PartyGame is
 
-PartyGame is a responsive, browser-based collection of party games built with React 19 and Vite 8. The current app contains eight playable games. Players take turns on a shared phone, tablet, or computer; the app does not provide accounts, online matchmaking, or cross-device synchronization.
+PartyGame is a responsive, browser-based collection of party games built with React 19 and Vite 8. The current app contains nine playable games. Players take turns on a shared phone, tablet, or computer; the app does not provide accounts, online matchmaking, or cross-device synchronization.
 
 The interface is currently in Thai. This document explains the current implementation and is written for both players and maintainers.
 
@@ -110,11 +110,19 @@ Player order is randomized at the start of a round in the games that use turn or
 - **How to play:** Select **เริ่มเกม** (Start game) to reveal a random instruction card, then select **เปิดการ์ดต่อไป** (Next card) to continue. There are 36 instructions, including left/right/everyone/solo sips, inviting friends, rock-paper-scissors, color and category challenges, memory and word games, staring, don't-laugh, thumb wrestling, majority voting, quick math, a tongue twister, charades, a truth-or-lie challenge, movement and sound imitation, and quick reaction games. The deck is shuffled again after all 36 cards appear, without repeating a card at the shuffle boundary.
 - **Choice:** Use any beverage; anyone may skip a prompt.
 
+### 4.9 Song Guess — “ทายเพลงให้ทัน”
+
+- **Players:** No roster is required; pass the device around the group.
+- **Prepare songs:** Paste a public YouTube or YouTube Music playlist link that can be embedded. The visible YouTube player stays at the minimum 200 × 200 px size; YouTube may show the current song information inside its player.
+- **How to play:** Select **เชื่อม playlist** (Connect playlist), wait for it to load, then select **เริ่มเกม** (Start game). The app shuffles tracks without repeats until the playlist is exhausted and plays each song from the beginning, looping until **เฉลยเพลง** (Reveal answer) is selected. Then select **เพลงถัดไป** (Next song).
+- **Playback:** YouTube streams the music directly; PartyGame does not receive or store the music audio. YouTube may show song information inside its player.
+
 ## 5. Saved data and privacy
 
 - Player names are saved separately for each game in the current browser's local storage and may be restored on a later visit using the same browser profile.
 - Loss statistics are saved locally for Number Guess, Minesweeper, Last Finger, Secret Range, and Big Card. Each game's setup panel has a reset control for its statistics.
 - Truth or Dare has no loss-statistics panel. Singing Score keeps recordings in memory during the active game for playback, then discards them; it does not save audio or scores after the game closes. Secret Range does not save submitted numbers. Command Cards and other active game progress are not stored as resumable sessions.
+- Song Guess loads and plays the selected playlist directly through YouTube; PartyGame does not receive or store the music audio. YouTube processes playback according to its privacy policy.
 - Data is not sent to a PartyGame server and does not sync between devices. Clearing the browser's site data can remove saved names and statistics. If browser storage is unavailable, the games remain playable but saved data may not persist.
 
 ## 6. Troubleshooting
@@ -153,7 +161,7 @@ Player order is randomized at the start of a round in the games that use turn or
 
 ## 1. PartyGame คืออะไร
 
-PartyGame คือเว็บไซต์รวมเกมปาร์ตี้ที่พัฒนาด้วย React 19 และ Vite 8 และปรับหน้าจอตามอุปกรณ์ได้ ปัจจุบันมีเกมเล่นได้ 8 เกม ผู้เล่นผลัดกันใช้โทรศัพท์ แท็บเล็ต หรือคอมพิวเตอร์เครื่องเดียวกัน ระบบยังไม่มีบัญชีผู้ใช้ ระบบจับคู่ผู้เล่นออนไลน์ หรือการซิงก์ข้อมูลระหว่างอุปกรณ์
+PartyGame คือเว็บไซต์รวมเกมปาร์ตี้ที่พัฒนาด้วย React 19 และ Vite 8 และปรับหน้าจอตามอุปกรณ์ได้ ปัจจุบันมีเกมเล่นได้ 9 เกม ผู้เล่นผลัดกันใช้โทรศัพท์ แท็บเล็ต หรือคอมพิวเตอร์เครื่องเดียวกัน ระบบยังไม่มีบัญชีผู้ใช้ ระบบจับคู่ผู้เล่นออนไลน์ หรือการซิงก์ข้อมูลระหว่างอุปกรณ์
 
 ตัวแอปในปัจจุบันแสดงผลเป็นภาษาไทย ส่วนเอกสารฉบับนี้อธิบายทั้งวิธีเล่นและโครงสร้างสำหรับผู้ดูแลโปรเจกต์
 
@@ -254,12 +262,19 @@ npm run preview
 - **วิธีเล่น:** กด **เริ่มเกม** เพื่อเปิดการ์ดคำสั่งสุ่ม แล้วกด **เปิดการ์ดต่อไป** เพื่อเล่นต่อ มี 36 คำสั่ง ทั้งจิบตามตำแหน่งหรือชวนเพื่อน เป่ายิงฉุบ เกมหมวดหมู่และเกมจำคำ จ้องตา ห้ามขำ สงครามนิ้วโป้ง โหวตเสียงข้างมาก ทายคู่หรือคี่ แข่งแตะโต๊ะ หยุดนิ่ง พูดลิ้นพันกัน ฮัมเพลงและเลียนแบบท่า รวมถึงเกมเลข 7 คำตรงข้าม ใบ้ท่าสัตว์ ชี้สี แต่งเรื่องคนละคำ ต่อคำคล้องจอง คำต้องห้าม สองจริงหนึ่งหลอก ดวลคำชม กระจกเงา ไฮไฟว์ และเลียนแบบเสียง การ์ดจะไม่ซ้ำจนครบ 36 ใบ แล้วสับใหม่โดยไม่ให้ใบแรกซ้ำกับใบสุดท้ายของกองก่อน
 - **เลือกได้ตามสะดวก:** ใช้เครื่องดื่มอะไรก็ได้ และข้ามคำสั่งได้ทุกคน
 
+### 4.9 ทายเพลงให้ทัน (Song Guess)
+
+- **จำนวนผู้เล่น:** ไม่ต้องกรอกรายชื่อ ให้ส่งอุปกรณ์วนกันในวง
+- **เตรียมเพลง:** วางลิงก์ YouTube หรือ YouTube Music playlist แบบสาธารณะที่ฝังในเว็บได้ เกมสุ่มเพลงโดยไม่ซ้ำจนกว่าจะครบรายการ และแสดง YouTube player ขนาดต่ำสุด 200 × 200 พิกเซล
+- **วิธีเล่น:** กด **เริ่มเกม** ระบบสุ่มเพลงและเล่นตั้งแต่ต้นจนจบ โดยวนเพลงซ้ำจนกด **เฉลยเพลง** เพื่อหยุดเสียงและดูชื่อเพลง จากนั้นกด **เพลงถัดไป** เพลงจะไม่ซ้ำจนกว่าจะเล่นครบ playlist
+- **การเล่นเพลง:** เสียงเล่นผ่าน YouTube โดยตรง ข้อมูลเพลงหรือชื่อเพลงอาจแสดงอยู่ใน player แม้หน้าเกมจะยังไม่เฉลย
+
 ## 5. ข้อมูลที่บันทึกและความเป็นส่วนตัว
 
 - ระบบบันทึกชื่อผู้เล่นแยกตามเกมไว้ในพื้นที่จัดเก็บภายในเบราว์เซอร์ และอาจโหลดกลับมาใช้เมื่อเปิดเกมผ่านโปรไฟล์เบราว์เซอร์เดิม
 - ระบบบันทึกสถิติแพ้ในเบราว์เซอร์สำหรับเกมอย่าโดนเลขลับ เปิดช่องลุ้นบึ้ม อย่าปล่อยช้า เลขลับขั้วสุดโต่ง และจับใหญ่ แผงตั้งค่าของแต่ละเกมมีปุ่มรีเซ็ตสถิติ
-- Truth or Dare ไม่มีแผงสถิติแพ้ ศึกเสียงทองเก็บคลิปเสียงทุกคนไว้ชั่วคราวในหน่วยความจำตลอดเกมเพื่อฟังย้อนหลัง แล้วลบทิ้งเมื่อเริ่มเกมใหม่หรือปิดเกม โดยไม่บันทึกเสียงหรือคะแนนหลังจบเกม เกมเลขลับขั้วสุดโต่งไม่บันทึกตัวเลขที่ส่ง ส่วนเกมที่กำลังเล่นรวมถึงการ์ดคำสั่งจะไม่ถูกบันทึกเพื่อกลับมาเล่นต่อ
-- ข้อมูลจะไม่ถูกส่งไปยังเซิร์ฟเวอร์ของ PartyGame และไม่มีการซิงก์ข้ามอุปกรณ์ การล้างข้อมูลเว็บไซต์ในเบราว์เซอร์อาจลบรายชื่อและสถิติที่บันทึกไว้ หากเบราว์เซอร์ปิดกั้นพื้นที่จัดเก็บ เกมยังเล่นได้ แต่อาจไม่สามารถเก็บข้อมูลไว้ได้
+- Truth or Dare ไม่มีแผงสถิติแพ้ ศึกเสียงทองเก็บคลิปเสียงทุกคนไว้ชั่วคราวในหน่วยความจำตลอดเกมเพื่อฟังย้อนหลัง แล้วลบทิ้งเมื่อเริ่มเกมใหม่หรือปิดเกม โดยไม่บันทึกเสียงหรือคะแนนหลังจบเกม เกมทายเพลงเชื่อมต่อ YouTube เพื่อเล่น playlist โดยตรง และ PartyGame ไม่ได้รับหรือจัดเก็บเสียงเพลง เกมเลขลับขั้วสุดโต่งไม่บันทึกตัวเลขที่ส่ง ส่วนเกมที่กำลังเล่นรวมถึงการ์ดคำสั่งจะไม่ถูกบันทึกเพื่อกลับมาเล่นต่อ
+- ข้อมูลเกมจะไม่ถูกส่งไปยังเซิร์ฟเวอร์ของ PartyGame และไม่มีการซิงก์ข้ามอุปกรณ์ เกมทายเพลงจะติดต่อ YouTube เพื่อเล่น playlist ตามนโยบายความเป็นส่วนตัวของ YouTube การล้างข้อมูลเว็บไซต์ในเบราว์เซอร์อาจลบรายชื่อและสถิติที่บันทึกไว้ หากเบราว์เซอร์ปิดกั้นพื้นที่จัดเก็บ เกมยังเล่นได้ แต่อาจไม่สามารถเก็บข้อมูลไว้ได้
 
 ## 6. วิธีแก้ปัญหาเบื้องต้น
 
@@ -276,7 +291,7 @@ npm run preview
 | --- | --- |
 | `src/main.jsx` | จุดเริ่มต้นของ React และโหลดไฟล์สไตล์ |
 | `src/App.jsx` | หน้าแรก รายการเกม เมนู และการเลือกเกม |
-| `src/games/` | หน้าจอเกมทั้ง 8 เกมและแผงสถิติแพ้ที่ใช้ร่วมกัน |
+| `src/games/` | หน้าจอเกมทั้ง 9 เกมและแผงสถิติแพ้ที่ใช้ร่วมกัน |
 | `src/games/gameStats.js` | จัดเก็บรายชื่อผู้เล่น สถิติแพ้ และสุ่มลำดับผู้เล่น |
 | `src/games/numberGuess.js` | แปลงคำทายเป็นตัวเลขและสุ่มเลขลับ |
 | `src/games/truthOrDareTopics.js` | หัวข้อและโจทย์ที่มีใน Truth or Dare |

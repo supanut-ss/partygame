@@ -7,6 +7,7 @@ import SecretRangeGame from './games/SecretRangeGame.jsx';
 import BigCardGame from './games/BigCardGame.jsx';
 import SingingScoreGame from './games/SingingScoreGame.jsx';
 import CommandCardGame from './games/CommandCardGame.jsx';
+import YouTubeSongGuessGame from './games/YouTubeSongGuessGame.jsx';
 
 const gameSlots = [
   {
@@ -71,6 +72,14 @@ const gameSlots = [
     title: 'เปิดการ์ดคำสั่ง',
     description: 'สุ่มการ์ดคำสั่งดื่ม แล้วเล่นต่อได้เรื่อย ๆ',
     tone: 'yellow',
+    available: true,
+  },
+  {
+    id: 'song-guess',
+    number: '09',
+    title: 'ทายเพลงให้ทัน',
+    description: 'สุ่มเพลงจาก YouTube playlist แล้วทายชื่อเพลงก่อนเฉลย',
+    tone: 'purple',
     available: true,
   },
 ];
@@ -269,6 +278,8 @@ function App() {
           <SingingScoreGame />
         ) : activeGame === 'command-card' ? (
           <CommandCardGame />
+        ) : activeGame === 'song-guess' ? (
+          <YouTubeSongGuessGame />
         ) : (
           <>
         <section className="hero" aria-labelledby="hero-title">
@@ -276,7 +287,7 @@ function App() {
             <div className="eyebrow"><span className="eyebrow-dot" /> เว็บรวมเกมสำหรับสายปาร์ตี้</div>
             <h1 id="hero-title">วงพร้อมแล้ว<br />เกมไหนก็<span className="hero-highlight">สนุก</span></h1>
             <p className="hero-description">
-              รวม 8 เกมปาร์ตี้ไว้เล่นด้วยกันบนเครื่องเดียว เลือกเกมแล้วเริ่มเล่นได้ทันที
+              รวม 9 เกมปาร์ตี้ไว้เล่นด้วยกันบนเครื่องเดียว เลือกเกมแล้วเริ่มเล่นได้ทันที
               รองรับทั้งมือถือ แท็บเล็ต และคอมพิวเตอร์
             </p>
             <div className="hero-actions">

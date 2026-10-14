@@ -6533,3 +6533,513 @@ button.mine-tile:focus-visible {
     animation: none;
   }
 }
+
+.song-guess-shell {
+  background:
+    radial-gradient(circle at 8% 18%, rgb(255 201 79 / 16%) 0 68px, transparent 69px),
+    radial-gradient(circle at 95% 68%, rgb(115 85 232 / 9%) 0 105px, transparent 106px),
+    var(--paper);
+}
+
+.song-guess-youtube-shell {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  width: min(100%, 660px);
+  margin: 16px auto 0;
+  padding: 18px;
+  border: 1px solid #dcd5ef;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #f5f0ff, #fffdf8);
+  box-shadow: 0 12px 35px rgb(37 33 63 / 8%);
+  text-align: center;
+}
+
+.song-guess-youtube-layout {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-direction: row;
+}
+
+.song-guess-youtube-controls {
+  display: grid;
+  width: 200px;
+  min-width: 0;
+  align-content: center;
+  gap: 12px;
+}
+
+.song-guess-youtube-label,
+.song-guess-youtube-status {
+  margin: 0;
+  color: #655e74;
+  font-size: 0.78rem;
+  font-weight: 750;
+  line-height: 1.5;
+}
+
+.song-guess-youtube-label {
+  color: #5841a5;
+  font-size: 0.84rem;
+  font-weight: 850;
+}
+
+.song-guess-youtube-actions {
+  display: grid;
+  gap: 8px;
+}
+
+.song-guess-youtube-actions .button {
+  min-height: 48px;
+  justify-content: center;
+  gap: 8px;
+}
+
+.song-guess-youtube-controls .song-guess-start-button {
+  width: 100%;
+  min-width: 0;
+  margin-top: 0;
+  padding-inline: 10px;
+}
+
+.song-guess-youtube-controls .button:disabled {
+  border-color: #d8d3e2;
+  color: #827d8a;
+  background: #e9e6ef;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.song-guess-youtube-viewport {
+  width: 200px;
+  min-width: 200px;
+  height: 200px;
+  min-height: 200px;
+  flex: 0 0 200px;
+  line-height: 0;
+}
+
+.song-guess-youtube-viewport iframe {
+  display: block;
+  width: 200px !important;
+  min-width: 200px;
+  height: 200px !important;
+  min-height: 200px;
+  max-width: none !important;
+}
+
+.song-guess-playlist-form {
+  display: grid;
+  width: 100%;
+  gap: 8px;
+  text-align: left;
+}
+
+.song-guess-playlist-label {
+  color: #37314d;
+  font-size: 0.88rem;
+  font-weight: 800;
+}
+
+.song-guess-playlist-row {
+  display: flex;
+  gap: 9px;
+}
+
+.song-guess-playlist-input {
+  width: 100%;
+  min-width: 0;
+  min-height: 50px;
+  padding: 0 14px;
+  border: 1px solid #d9d3e3;
+  border-radius: 12px;
+  color: #25213f;
+  background: #fff;
+  font: inherit;
+  font-size: 0.9rem;
+}
+
+.song-guess-playlist-input:focus-visible {
+  border-color: #7355e8;
+  outline: 3px solid rgb(115 85 232 / 28%);
+  outline-offset: 2px;
+}
+
+.song-guess-playlist-help {
+  color: #777180;
+  font-size: 0.76rem;
+  line-height: 1.5;
+}
+
+.song-guess-connect-button {
+  min-height: 50px;
+  flex: 0 0 auto;
+  justify-content: center;
+  padding-inline: 16px;
+}
+
+.song-guess-panel {
+  width: min(100%, 660px);
+  margin: 0 auto;
+  padding: clamp(22px, 5vw, 40px);
+  border: 1px solid #e9e4ee;
+  border-radius: 28px;
+  background: #fffdf8;
+  box-shadow: 0 22px 60px rgb(37 33 63 / 11%);
+}
+
+.song-guess-setup {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.song-guess-record {
+  position: relative;
+  display: grid;
+  width: 142px;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 5px solid #19162c;
+  border-radius: 50%;
+  background: repeating-radial-gradient(circle at center, #302b46 0 2px, #211d35 3px 5px, #312c47 6px 7px, #211d35 8px 11px);
+  box-shadow: 0 15px 28px rgb(37 33 63 / 20%);
+}
+
+.song-guess-record::before {
+  position: absolute;
+  inset: 11px;
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 50%;
+  content: '';
+}
+
+.song-guess-record-label {
+  z-index: 1;
+  display: grid;
+  width: 42px;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 3px solid #25213f;
+  border-radius: 50%;
+  color: #25213f;
+  background: #ffc94f;
+  font-size: 1.45rem;
+  font-weight: 900;
+}
+
+.song-guess-setup > .song-guess-record {
+  margin: 1px 0 24px;
+  transform: rotate(-13deg);
+}
+
+.song-guess-setup-copy h2 {
+  margin: 0;
+  color: #25213f;
+  font-size: clamp(1.25rem, 4vw, 1.55rem);
+  font-weight: 850;
+  letter-spacing: -0.025em;
+}
+
+.song-guess-setup-copy p {
+  max-width: 44ch;
+  margin: 8px auto 20px;
+  color: var(--muted);
+  font-size: 0.94rem;
+  line-height: 1.7;
+}
+
+.song-guess-message {
+  width: 100%;
+  margin: 13px 0 0;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.song-guess-message--info { color: #64588e; }
+.song-guess-message--success { color: #187b5c; }
+.song-guess-message--error { color: #b52d4b; }
+
+.song-guess-start-button {
+  min-width: 190px;
+  min-height: 52px;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.song-guess-start-button:disabled {
+  border-color: #d8d3e2;
+  color: #827d8a;
+  background: #e9e6ef;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.song-guess-privacy-note {
+  max-width: 50ch;
+  margin: 14px 0 0;
+  color: #777180;
+  font-size: 0.78rem;
+  line-height: 1.6;
+  text-align: center;
+}
+
+.song-guess-play-panel {
+  display: grid;
+  justify-items: center;
+}
+
+.song-guess-play-panel .song-guess-stage {
+  min-height: clamp(220px, 34vh, 320px);
+}
+
+.song-guess-play-panel .song-guess-record--stage {
+  width: clamp(104px, 14vh, 132px);
+}
+
+.song-guess-round-line {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 14px;
+  color: #746d81;
+  font-size: 0.8rem;
+  font-weight: 800;
+}
+
+.song-guess-round-line span:first-child {
+  color: #6e51d3;
+}
+
+.song-guess-stage {
+  position: relative;
+  display: grid;
+  width: 100%;
+  min-height: 355px;
+  align-content: center;
+  justify-items: center;
+  overflow: hidden;
+  padding: 26px 20px;
+  border: 1px solid #41385f;
+  border-radius: 24px;
+  color: #fffdf8;
+  background:
+    radial-gradient(circle at 50% 42%, rgb(115 85 232 / 34%), transparent 56%),
+    #25213f;
+  text-align: center;
+}
+
+.song-guess-stage::before,
+.song-guess-stage::after {
+  position: absolute;
+  width: 270px;
+  height: 270px;
+  border: 1px solid rgb(255 255 255 / 6%);
+  border-radius: 50%;
+  content: '';
+  pointer-events: none;
+}
+
+.song-guess-stage::before { transform: scale(1.25); }
+.song-guess-stage::after { transform: scale(1.62); }
+
+.song-guess-record--stage {
+  z-index: 1;
+  width: 154px;
+  border-color: #151226;
+}
+
+.song-guess-stage.is-playing .song-guess-record--stage {
+  animation: song-guess-record-spin 3.4s linear infinite;
+}
+
+.song-guess-wave {
+  z-index: 1;
+  display: flex;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 22px;
+}
+
+.song-guess-wave i {
+  display: block;
+  width: 4px;
+  height: var(--bar-height);
+  border-radius: 5px;
+  background: #ffc94f;
+  opacity: 0.55;
+  transform: scaleY(0.38);
+}
+
+.song-guess-stage.is-playing .song-guess-wave i {
+  animation: song-guess-wave-bounce 680ms ease-in-out infinite alternate;
+  animation-delay: calc(var(--bar-index) * -39ms);
+  opacity: 0.95;
+}
+
+.song-guess-hidden-answer,
+.song-guess-answer {
+  z-index: 1;
+  display: grid;
+  gap: 7px;
+  margin-top: 16px;
+}
+
+.song-guess-hidden-answer span,
+.song-guess-answer > span {
+  color: #cdc7e0;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.song-guess-hidden-answer strong {
+  color: #fffdf8;
+  font-size: clamp(1.05rem, 4vw, 1.28rem);
+  font-weight: 850;
+}
+
+.song-guess-answer h2 {
+  max-width: 34ch;
+  margin: 0;
+  color: #ffda77;
+  font-size: clamp(1.15rem, 4.3vw, 1.7rem);
+  font-weight: 900;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.song-guess-timer {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 12px;
+  margin-top: 17px;
+  color: #6f687e;
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 800;
+}
+
+.song-guess-timer-track {
+  height: 7px;
+  flex: 1;
+  overflow: hidden;
+  border-radius: 99px;
+  background: #e9e5ef;
+}
+
+.song-guess-timer-track span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: #7355e8;
+  transition: width 120ms linear;
+}
+
+.song-guess-actions {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 19px;
+}
+
+.song-guess-actions .button {
+  min-height: 50px;
+  justify-content: center;
+  gap: 9px;
+}
+
+.song-guess-play-button,
+.song-guess-next-button {
+  min-width: 175px;
+}
+
+.song-guess-secondary-button {
+  border: 1px solid #d9d3e3;
+  color: #39334e;
+  background: #fffdf8;
+}
+
+.song-guess-secondary-button:hover {
+  background: #f3effa;
+}
+
+@keyframes song-guess-record-spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes song-guess-wave-bounce {
+  from { transform: scaleY(0.28); }
+  to { transform: scaleY(1); }
+}
+
+@media (max-width: 520px) {
+  .song-guess-panel {
+    padding: 20px 17px;
+    border-radius: 23px;
+  }
+
+  .song-guess-stage {
+    padding: 20px 14px;
+  }
+
+  .song-guess-youtube-shell {
+    padding: 16px 12px;
+  }
+
+  .song-guess-round-line {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .song-guess-actions {
+    flex-direction: column;
+  }
+
+  .song-guess-playlist-row {
+    flex-direction: column;
+  }
+
+  .song-guess-youtube-layout {
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .song-guess-youtube-controls {
+    width: 100%;
+  }
+
+  .song-guess-youtube-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .song-guess-connect-button {
+    width: 100%;
+  }
+
+  .song-guess-actions .button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .song-guess-timer-track span {
+    transition: none;
+  }
+
+  .song-guess-stage.is-playing .song-guess-record--stage,
+  .song-guess-stage.is-playing .song-guess-wave i {
+    animation: none;
+    transform: none;
+  }
+}
