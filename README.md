@@ -1,6 +1,6 @@
 # PartyGame
 
-A responsive React party-game website with six games, randomized turns, and player-loss statistics. Player names and statistics are stored in the browser; no server database is used.
+A responsive React party-game website with eight games, randomized turns, automatic singing scores, and player-loss statistics. Player names and loss statistics are stored in the browser; singing scores last only for the active game. No server database is used.
 
 ## Run locally
 
@@ -13,5 +13,5 @@ npm run dev
 
 ## Project structure
 
-- `src/App.jsx` contains the page layout and local placeholder game data.
+- `src/App.jsx` contains the page layout, game catalog, and game selection.
 - `src/styles.css` contains the responsive visual system and interactions.

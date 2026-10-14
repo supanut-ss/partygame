@@ -9,7 +9,7 @@
 
 ## 1. What PartyGame is
 
-PartyGame is a responsive, browser-based collection of party games built with React 19 and Vite 8. The current app contains six playable games. Players take turns on a shared phone, tablet, or computer; the app does not provide accounts, online matchmaking, or cross-device synchronization.
+PartyGame is a responsive, browser-based collection of party games built with React 19 and Vite 8. The current app contains eight playable games. Players take turns on a shared phone, tablet, or computer; the app does not provide accounts, online matchmaking, or cross-device synchronization.
 
 The interface is currently in Thai. This document explains the current implementation and is written for both players and maintainers.
 
@@ -38,7 +38,7 @@ The production files are written to `dist/`. They can be served from a static we
 ## 3. General play instructions
 
 1. On the home page, browse the game cards and select **เริ่มเล่น** (Start) for a game.
-2. Add or remove players, enter a name for each player, and start the game. Most games accept 2–8 players; Secret Range requires 3–8. Names must be non-empty and unique within the game, and each name is limited to 24 characters.
+2. Add or remove players when a game asks for a roster, enter a name for each player, and start. Most roster-based games accept 2–8 players; Secret Range requires 3–8; Singing Score requires 4–20 players in an even number. Command Cards does not ask for player names.
 3. Follow the turn prompt shown on screen. Pass the device to the named player when the game asks for a handoff.
 4. When a game's result screen appears, choose **เริ่มเกมใหม่** (New game/round) to replay with the same roster or **เปลี่ยนผู้เล่น** (Change players) to return to setup. Truth or Dare continues into the next round automatically; use its sidebar controls to shuffle the order or edit players.
 5. Use the header's **กลับหน้ารวมเกม** (Back to games) button to leave a game and return to the catalog.
@@ -94,16 +94,33 @@ Player order is randomized at the start of a round in the games that use turn or
 - **How to play:** The app shuffles the player order and passes the device to each player. Select **สุ่มการ์ด** (Draw card) to receive a face-down card. You may draw again before opening it; every drawn card is removed from the deck, including cards replaced by another draw. Select **เปิดการ์ด** (Reveal card), then **เก็บไพ่ใบนี้** (Keep this card) to confirm your final card and pass the device on.
 - The app prevents drawing when doing so would leave too few cards for players who have not had a turn. Once everyone has kept one card, the highest card loses. All cards are shown on the result screen, and the loss is recorded locally.
 
+### 4.7 Singing Score — “ศึกเสียงทอง”
+
+- **Players:** 4–20, in an even number.
+- **Rounds:** Every game has exactly one round.
+- **How to play:** The app randomly pairs all players into two-person teams and shuffles the team order. Each team records one performance in the single round; any member may sing, and the app does not identify the singer. Everyone sings the same song and section for 30–60 seconds. The app records one take locally, assigns a team score, automatically adds a random funny comment, and lets the team play the clip back before passing the turn.
+- **Scoring:** The base score averages tonal character and pitch stability. A transparent rule set adds or deducts points when either feature is notably strong or weak. Loudness is not part of the score; note detection only checks whether there is enough audio to calculate a result. The app does not compare the performance with the original melody or lyrics, so treat the result as a party-game estimate.
+- **Result:** Teams are ranked by their score from the single round. The progress panel marks whether each team has sung. The result screen shows each team's score, automatic funny comment, and recording for playback. Audio is analyzed locally; clips stay in memory until a new game starts or the game closes.
+- **Microphone:** The browser must allow microphone access. Use HTTPS or `localhost`; retry after granting permission if the browser blocks access.
+- **Replay:** Choose **ตั้งทีมใหม่** (Set up new teams) to return to setup and start again with a newly randomized pairing, or **เปลี่ยนรายชื่อผู้เล่น** (Change players) to edit the roster.
+
+### 4.8 Command Cards — “เปิดการ์ดคำสั่ง”
+
+- **Players:** No roster is required; pass the device around the group.
+- **How to play:** Select **เริ่มเกม** (Start game) to reveal a random instruction card, then select **เปิดการ์ดต่อไป** (Next card) to continue. There are 36 instructions, including left/right/everyone/solo sips, inviting friends, rock-paper-scissors, color and category challenges, memory and word games, staring, don't-laugh, thumb wrestling, majority voting, quick math, a tongue twister, charades, a truth-or-lie challenge, movement and sound imitation, and quick reaction games. The deck is shuffled again after all 36 cards appear, without repeating a card at the shuffle boundary.
+- **Choice:** Use any beverage; anyone may skip a prompt.
+
 ## 5. Saved data and privacy
 
 - Player names are saved separately for each game in the current browser's local storage and may be restored on a later visit using the same browser profile.
 - Loss statistics are saved locally for Number Guess, Minesweeper, Last Finger, Secret Range, and Big Card. Each game's setup panel has a reset control for its statistics.
-- Truth or Dare has no loss-statistics panel. Secret Range does not save submitted numbers. Active rounds, card draws, and turn progress are not stored as resumable sessions.
+- Truth or Dare has no loss-statistics panel. Singing Score keeps recordings in memory during the active game for playback, then discards them; it does not save audio or scores after the game closes. Secret Range does not save submitted numbers. Command Cards and other active game progress are not stored as resumable sessions.
 - Data is not sent to a PartyGame server and does not sync between devices. Clearing the browser's site data can remove saved names and statistics. If browser storage is unavailable, the games remain playable but saved data may not persist.
 
 ## 6. Troubleshooting
 
-- **A game will not start:** Check that every player name is filled in and unique. Use 2–8 players, or 3–8 for Secret Range.
+- **A game will not start:** Check that every player name is filled in and unique. Use 2–8 players, 3–8 for Secret Range, or an even number from 4–20 for Singing Score.
+- **Singing Score cannot use the microphone:** Grant microphone permission in the browser and open the site over HTTPS or `localhost`.
 - **Voice guessing does not work:** Voice recognition depends on browser support and permission. Type the number instead, or speak it in Thai when voice recognition is available.
 - **Last Finger seems to wait:** Keep holding through the signal and release only after it becomes silent. On a computer, focus the game area before using Space or Enter.
 - **Names or statistics are missing:** Return in the same browser profile and check whether site data was cleared or local storage is disabled.
@@ -115,7 +132,7 @@ Player order is randomized at the start of a round in the games that use turn or
 | --- | --- |
 | `src/main.jsx` | React entry point and stylesheet loading |
 | `src/App.jsx` | Home page, game catalog, navigation, and game selection |
-| `src/games/` | Six game screens and shared loss-statistics panel |
+| `src/games/` | Eight game screens and shared loss-statistics panel |
 | `src/games/gameStats.js` | Player-name storage, loss-statistics storage, and player shuffling |
 | `src/games/numberGuess.js` | Number parsing and secret-number generation |
 | `src/games/truthOrDareTopics.js` | Built-in Truth or Dare topics and prompts |
@@ -136,7 +153,7 @@ Player order is randomized at the start of a round in the games that use turn or
 
 ## 1. PartyGame คืออะไร
 
-PartyGame คือเว็บไซต์รวมเกมปาร์ตี้ที่พัฒนาด้วย React 19 และ Vite 8 และปรับหน้าจอตามอุปกรณ์ได้ ปัจจุบันมีเกมเล่นได้ 6 เกม ผู้เล่นผลัดกันใช้โทรศัพท์ แท็บเล็ต หรือคอมพิวเตอร์เครื่องเดียวกัน ระบบยังไม่มีบัญชีผู้ใช้ ระบบจับคู่ผู้เล่นออนไลน์ หรือการซิงก์ข้อมูลระหว่างอุปกรณ์
+PartyGame คือเว็บไซต์รวมเกมปาร์ตี้ที่พัฒนาด้วย React 19 และ Vite 8 และปรับหน้าจอตามอุปกรณ์ได้ ปัจจุบันมีเกมเล่นได้ 8 เกม ผู้เล่นผลัดกันใช้โทรศัพท์ แท็บเล็ต หรือคอมพิวเตอร์เครื่องเดียวกัน ระบบยังไม่มีบัญชีผู้ใช้ ระบบจับคู่ผู้เล่นออนไลน์ หรือการซิงก์ข้อมูลระหว่างอุปกรณ์
 
 ตัวแอปในปัจจุบันแสดงผลเป็นภาษาไทย ส่วนเอกสารฉบับนี้อธิบายทั้งวิธีเล่นและโครงสร้างสำหรับผู้ดูแลโปรเจกต์
 
@@ -165,7 +182,7 @@ npm run preview
 ## 3. วิธีเล่นทั่วไป
 
 1. ที่หน้าแรก เลือกการ์ดเกมที่ต้องการ แล้วกด **เริ่มเล่น**.
-2. เพิ่มหรือลบผู้เล่น กรอกชื่อทุกคน แล้วเริ่มเกม เกมส่วนใหญ่รองรับ 2–8 คน ส่วนเลขลับขั้วสุดโต่งต้องมี 3–8 คน ชื่อต้องไม่เว้นว่างและห้ามซ้ำกันในเกมเดียวกัน โดยกรอกได้ไม่เกิน 24 ตัวอักษร
+2. เพิ่มหรือลบผู้เล่นในเกมที่ขอรายชื่อ แล้วเริ่มเกม เกมส่วนใหญ่รองรับ 2–8 คน เลขลับขั้วสุดโต่งต้องมี 3–8 คน และศึกเสียงทองต้องมี 4–20 คนเป็นจำนวนคู่ ส่วนเกมเปิดการ์ดคำสั่งไม่ต้องกรอกรายชื่อผู้เล่น
 3. ทำตามข้อความบอกตาบนหน้าจอ เมื่อเกมให้ส่งต่ออุปกรณ์ ให้ส่งให้ผู้เล่นที่มีชื่อแสดงอยู่
 4. เมื่อเกมแสดงหน้าผลลัพธ์ เลือก **เริ่มเกมใหม่** เพื่อเล่นต่อด้วยรายชื่อเดิม หรือ **เปลี่ยนผู้เล่น** เพื่อกลับไปแก้รายชื่อ ส่วน Truth or Dare จะเล่นต่อรอบใหม่อัตโนมัติ โดยใช้ปุ่มข้างหน้าจอเพื่อสุ่มลำดับใหม่หรือแก้รายชื่อ
 5. กด **กลับหน้ารวมเกม** ที่แถบด้านบนเพื่อออกจากเกมและกลับไปยังรายการเกม
@@ -221,16 +238,33 @@ npm run preview
 - **วิธีเล่น:** ระบบสุ่มลำดับแล้วส่งอุปกรณ์ให้ผู้เล่นทีละคน กด **สุ่มการ์ด** เพื่อรับไพ่คว่ำไว้ ผู้เล่นสุ่มใหม่ได้ก่อนเปิดไพ่ ไพ่ทุกใบที่สุ่มจะถูกนำออกจากสำรับ แม้จะสุ่มใบใหม่มาแทนก็ตาม กด **เปิดการ์ด** แล้วกด **เก็บไพ่ใบนี้** เพื่อยืนยันไพ่สุดท้ายและส่งอุปกรณ์ต่อ
 - ระบบจะไม่ให้สุ่มไพ่เพิ่มหากจะทำให้ไพ่ไม่พอสำหรับผู้เล่นที่ยังไม่ได้เล่น เมื่อทุกคนเก็บไพ่คนละใบแล้ว ผู้ที่ได้ไพ่ใหญ่ที่สุดจะแพ้ หน้าผลลัพธ์แสดงไพ่ทุกใบและบันทึกสถิติแพ้ไว้ในเบราว์เซอร์
 
+### 4.7 ศึกเสียงทอง (Singing Score)
+
+- **จำนวนผู้เล่น:** 4–20 คน และต้องเป็นจำนวนคู่
+- **จำนวนรอบ:** เล่นรอบเดียวเสมอ
+- **วิธีเล่น:** ระบบสุ่มจับคู่สมาชิกทั้งหมดเป็นทีมละ 2 คนและสุ่มลำดับทีม แต่ละทีมร้องหนึ่งครั้งในรอบเดียว โดยสมาชิกคนใดก็ร้องแทนทีมได้ แอปไม่ระบุว่าใครร้อง ทุกทีมร้องเพลงและท่อนเดียวกัน 30–60 วินาที แอปบันทึกหนึ่งเทคและประเมินเสียงบนอุปกรณ์ พร้อมสุ่มคำบรรยายฮา ๆ ตามคะแนนให้อัตโนมัติ และเปิดให้ฟังทวนก่อนส่งตา
+- **การคำนวณคะแนน:** คะแนนพื้นฐานมาจากค่าเฉลี่ยของลักษณะโทนเสียงและความนิ่งของโน้ต จากนั้นระบบใช้เกณฑ์ที่แสดงเหตุผลได้เพื่อบวกหรือลบคะแนนเมื่อแต่ละด้านโดดเด่นหรืออ่อนลง ไม่ใช้ความดังเป็นคะแนน ส่วนการจับโน้ตใช้ตรวจว่ามีข้อมูลพอประเมินหรือไม่ แอปไม่เทียบเสียงกับเมโลดีหรือเนื้อเพลงต้นฉบับ คะแนนจึงเป็นค่าประมาณสำหรับเกม
+- **ผลการแข่งขัน:** จัดอันดับทีมจากคะแนนในรอบเดียว แผงความคืบหน้าแสดงว่าทีมไหนร้องแล้ว หน้าผลลัพธ์แสดงคะแนน คำบรรยายสุ่ม และคลิปของแต่ละทีมโดยไม่แยกผู้ร้อง เสียงวิเคราะห์บนอุปกรณ์และเก็บชั่วคราวในหน่วยความจำจนกว่าจะเริ่มเกมใหม่หรือปิดเกม
+- **ไมโครโฟน:** เบราว์เซอร์ต้องอนุญาตให้ใช้ไมโครโฟน และต้องเปิดเว็บผ่าน HTTPS หรือ `localhost` หากเข้าไมค์ไม่ได้ ให้ตรวจสิทธิ์แล้วลองอีกครั้ง
+- **เล่นใหม่:** เลือก **ตั้งทีมใหม่** เพื่อกลับไปหน้าเริ่มเกมและสุ่มคู่ใหม่ หรือเลือก **เปลี่ยนรายชื่อผู้เล่น** เพื่อแก้รายชื่อ
+
+### 4.8 เปิดการ์ดคำสั่ง (Command Cards)
+
+- **จำนวนผู้เล่น:** ไม่ต้องกรอกรายชื่อ ให้ส่งอุปกรณ์วนกันในวง
+- **วิธีเล่น:** กด **เริ่มเกม** เพื่อเปิดการ์ดคำสั่งสุ่ม แล้วกด **เปิดการ์ดต่อไป** เพื่อเล่นต่อ มี 36 คำสั่ง ทั้งจิบตามตำแหน่งหรือชวนเพื่อน เป่ายิงฉุบ เกมหมวดหมู่และเกมจำคำ จ้องตา ห้ามขำ สงครามนิ้วโป้ง โหวตเสียงข้างมาก ทายคู่หรือคี่ แข่งแตะโต๊ะ หยุดนิ่ง พูดลิ้นพันกัน ฮัมเพลงและเลียนแบบท่า รวมถึงเกมเลข 7 คำตรงข้าม ใบ้ท่าสัตว์ ชี้สี แต่งเรื่องคนละคำ ต่อคำคล้องจอง คำต้องห้าม สองจริงหนึ่งหลอก ดวลคำชม กระจกเงา ไฮไฟว์ และเลียนแบบเสียง การ์ดจะไม่ซ้ำจนครบ 36 ใบ แล้วสับใหม่โดยไม่ให้ใบแรกซ้ำกับใบสุดท้ายของกองก่อน
+- **เลือกได้ตามสะดวก:** ใช้เครื่องดื่มอะไรก็ได้ และข้ามคำสั่งได้ทุกคน
+
 ## 5. ข้อมูลที่บันทึกและความเป็นส่วนตัว
 
 - ระบบบันทึกชื่อผู้เล่นแยกตามเกมไว้ในพื้นที่จัดเก็บภายในเบราว์เซอร์ และอาจโหลดกลับมาใช้เมื่อเปิดเกมผ่านโปรไฟล์เบราว์เซอร์เดิม
 - ระบบบันทึกสถิติแพ้ในเบราว์เซอร์สำหรับเกมอย่าโดนเลขลับ เปิดช่องลุ้นบึ้ม อย่าปล่อยช้า เลขลับขั้วสุดโต่ง และจับใหญ่ แผงตั้งค่าของแต่ละเกมมีปุ่มรีเซ็ตสถิติ
-- Truth or Dare ไม่มีแผงสถิติแพ้ เกมเลขลับขั้วสุดโต่งไม่บันทึกตัวเลขที่ส่ง รอบที่กำลังเล่น ไพ่ที่จั่ว และความคืบหน้าของตาจะไม่ถูกบันทึกเพื่อกลับมาเล่นต่อ
+- Truth or Dare ไม่มีแผงสถิติแพ้ ศึกเสียงทองเก็บคลิปเสียงทุกคนไว้ชั่วคราวในหน่วยความจำตลอดเกมเพื่อฟังย้อนหลัง แล้วลบทิ้งเมื่อเริ่มเกมใหม่หรือปิดเกม โดยไม่บันทึกเสียงหรือคะแนนหลังจบเกม เกมเลขลับขั้วสุดโต่งไม่บันทึกตัวเลขที่ส่ง ส่วนเกมที่กำลังเล่นรวมถึงการ์ดคำสั่งจะไม่ถูกบันทึกเพื่อกลับมาเล่นต่อ
 - ข้อมูลจะไม่ถูกส่งไปยังเซิร์ฟเวอร์ของ PartyGame และไม่มีการซิงก์ข้ามอุปกรณ์ การล้างข้อมูลเว็บไซต์ในเบราว์เซอร์อาจลบรายชื่อและสถิติที่บันทึกไว้ หากเบราว์เซอร์ปิดกั้นพื้นที่จัดเก็บ เกมยังเล่นได้ แต่อาจไม่สามารถเก็บข้อมูลไว้ได้
 
 ## 6. วิธีแก้ปัญหาเบื้องต้น
 
-- **เริ่มเกมไม่ได้:** ตรวจว่ากรอกชื่อผู้เล่นครบและไม่มีชื่อซ้ำ จำนวนผู้เล่นต้องอยู่ในช่วง 2–8 คน หรือ 3–8 คนสำหรับเกมเลขลับขั้วสุดโต่ง
+- **เริ่มเกมไม่ได้:** ตรวจว่ากรอกชื่อผู้เล่นครบและไม่มีชื่อซ้ำ จำนวนผู้เล่นต้องอยู่ในช่วง 2–8 คน เกมเลขลับขั้วสุดโต่งใช้ 3–8 คน และศึกเสียงทองใช้ 4–20 คนเป็นจำนวนคู่
+- **เกมศึกเสียงทองใช้ไมโครโฟนไม่ได้:** อนุญาตสิทธิ์ไมโครโฟนในเบราว์เซอร์ และเปิดเว็บผ่าน HTTPS หรือ `localhost`
 - **ทายด้วยเสียงไม่ได้:** การรู้จำเสียงขึ้นอยู่กับความสามารถและสิทธิ์ของเบราว์เซอร์ ให้พิมพ์ตัวเลขแทน หรือพูดตัวเลขภาษาไทยเมื่อเบราว์เซอร์รองรับ
 - **เกมอย่าปล่อยช้ารอนาน:** กดค้างระหว่างสัญญาณ แล้วปล่อยเมื่อเสียงเงียบ หากใช้คอมพิวเตอร์ ให้คลิกพื้นที่เล่นก่อนใช้ Space หรือ Enter
 - **ชื่อหรือสถิติหาย:** เปิดเกมจากโปรไฟล์เบราว์เซอร์เดิม และตรวจว่ามีการล้างข้อมูลเว็บไซต์หรือปิดพื้นที่จัดเก็บในเบราว์เซอร์หรือไม่
@@ -242,7 +276,7 @@ npm run preview
 | --- | --- |
 | `src/main.jsx` | จุดเริ่มต้นของ React และโหลดไฟล์สไตล์ |
 | `src/App.jsx` | หน้าแรก รายการเกม เมนู และการเลือกเกม |
-| `src/games/` | หน้าจอเกมทั้ง 6 เกมและแผงสถิติแพ้ที่ใช้ร่วมกัน |
+| `src/games/` | หน้าจอเกมทั้ง 8 เกมและแผงสถิติแพ้ที่ใช้ร่วมกัน |
 | `src/games/gameStats.js` | จัดเก็บรายชื่อผู้เล่น สถิติแพ้ และสุ่มลำดับผู้เล่น |
 | `src/games/numberGuess.js` | แปลงคำทายเป็นตัวเลขและสุ่มเลขลับ |
 | `src/games/truthOrDareTopics.js` | หัวข้อและโจทย์ที่มีใน Truth or Dare |

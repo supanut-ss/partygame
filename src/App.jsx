@@ -5,6 +5,8 @@ import TruthOrDareGame from './games/TruthOrDareGame.jsx';
 import LastFingerGame from './games/LastFingerGame.jsx';
 import SecretRangeGame from './games/SecretRangeGame.jsx';
 import BigCardGame from './games/BigCardGame.jsx';
+import SingingScoreGame from './games/SingingScoreGame.jsx';
+import CommandCardGame from './games/CommandCardGame.jsx';
 
 const gameSlots = [
   {
@@ -53,6 +55,22 @@ const gameSlots = [
     title: 'จับใหญ่',
     description: 'จั่วไพ่คนละใบ ใครได้ไพ่ใหญ่สุดเป็นผู้แพ้',
     tone: 'orange',
+    available: true,
+  },
+  {
+    id: 'singing-score',
+    number: '07',
+    title: 'ศึกเสียงทอง',
+    description: 'สุ่มจับคู่ทีมละ 2 คน ทุกทีมร้องหนึ่งครั้งต่อรอบ แล้วให้แอปฟังเสียงคิดคะแนนทีม',
+    tone: 'coral',
+    available: true,
+  },
+  {
+    id: 'command-card',
+    number: '08',
+    title: 'เปิดการ์ดคำสั่ง',
+    description: 'สุ่มการ์ดคำสั่งดื่ม แล้วเล่นต่อได้เรื่อย ๆ',
+    tone: 'yellow',
     available: true,
   },
 ];
@@ -247,6 +265,10 @@ function App() {
           <SecretRangeGame />
         ) : activeGame === 'big-card' ? (
           <BigCardGame />
+        ) : activeGame === 'singing-score' ? (
+          <SingingScoreGame />
+        ) : activeGame === 'command-card' ? (
+          <CommandCardGame />
         ) : (
           <>
         <section className="hero" aria-labelledby="hero-title">
@@ -254,7 +276,7 @@ function App() {
             <div className="eyebrow"><span className="eyebrow-dot" /> เว็บรวมเกมสำหรับสายปาร์ตี้</div>
             <h1 id="hero-title">วงพร้อมแล้ว<br />เกมไหนก็<span className="hero-highlight">สนุก</span></h1>
             <p className="hero-description">
-              รวม 6 เกมปาร์ตี้ไว้เล่นผลัดกันบนเครื่องเดียว ชวนเพื่อนใส่ชื่อแล้วเริ่มเล่นได้ทันที
+              รวม 8 เกมปาร์ตี้ไว้เล่นด้วยกันบนเครื่องเดียว เลือกเกมแล้วเริ่มเล่นได้ทันที
               รองรับทั้งมือถือ แท็บเล็ต และคอมพิวเตอร์
             </p>
             <div className="hero-actions">
@@ -271,7 +293,7 @@ function App() {
                   <path d="m3.5 8.3 2.8 2.8 6.2-6.2" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </span>
-              <span>ไม่ต้องสมัครสมาชิก เพิ่มชื่อเพื่อนแล้วเริ่มเล่นได้เลย</span>
+               <span>ไม่ต้องสมัครสมาชิก · ชวนเพื่อนแล้วเริ่มเล่นได้เลย</span>
             </div>
           </div>
 
@@ -290,7 +312,7 @@ function App() {
               <span className="section-kicker">เลือกเกมให้เข้ากับวง</span>
               <h2 id="games-title">เลือกเกมแล้วเล่นกัน</h2>
             </div>
-            <p>เลือกเกมที่พร้อมเล่น<br className="desktop-break" /> เกมใหม่จะทยอยเพิ่มในภายหลัง</p>
+            <p>เลือกเกมที่พร้อมเล่น<br className="desktop-break" /> แล้วชวนเพื่อนเริ่มสนุกได้เลย</p>
           </div>
 
           <div className="game-grid">
