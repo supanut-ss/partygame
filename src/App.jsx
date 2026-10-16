@@ -81,6 +81,7 @@ const gameSlots = [
     description: 'สุ่มเพลงจาก YouTube playlist แล้วทายชื่อเพลงก่อนเฉลย',
     tone: 'purple',
     available: true,
+    hidden: true,
   },
 ];
 
@@ -287,7 +288,7 @@ function App() {
             <div className="eyebrow"><span className="eyebrow-dot" /> เว็บรวมเกมสำหรับสายปาร์ตี้</div>
             <h1 id="hero-title">วงพร้อมแล้ว<br />เกมไหนก็<span className="hero-highlight">สนุก</span></h1>
             <p className="hero-description">
-              รวม 9 เกมปาร์ตี้ไว้เล่นด้วยกันบนเครื่องเดียว เลือกเกมแล้วเริ่มเล่นได้ทันที
+              รวม 8 เกมปาร์ตี้ไว้เล่นด้วยกันบนเครื่องเดียว เลือกเกมแล้วเริ่มเล่นได้ทันที
               รองรับทั้งมือถือ แท็บเล็ต และคอมพิวเตอร์
             </p>
             <div className="hero-actions">
@@ -327,7 +328,7 @@ function App() {
           </div>
 
           <div className="game-grid">
-            {gameSlots.map((game) => (
+            {gameSlots.filter((game) => !game.hidden).map((game) => (
               <article className="game-card" key={game.number}>
                 <GameArtwork number={game.number} tone={game.tone} />
                 <div className="game-card-content">

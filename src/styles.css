@@ -5942,7 +5942,7 @@ button.mine-tile:focus-visible {
   gap: 8px;
 }
 
-.singing-recording-playback label {
+.singing-recording-playback strong {
   color: #584e63;
   font-size: 0.82rem;
   font-weight: 800;

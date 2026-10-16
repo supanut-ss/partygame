@@ -9,7 +9,7 @@
 
 ## 1. What PartyGame is
 
-PartyGame is a responsive, browser-based collection of party games built with React 19 and Vite 8. The current app contains nine playable games. Players take turns on a shared phone, tablet, or computer; the app does not provide accounts, online matchmaking, or cross-device synchronization.
+PartyGame is a responsive, browser-based collection of party games built with React 19 and Vite 8. The current app shows eight playable games; Song Guess is temporarily hidden but its code is retained. Players take turns on a shared phone, tablet, or computer; the app does not provide accounts, online matchmaking, or cross-device synchronization.
 
 The interface is currently in Thai. This document explains the current implementation and is written for both players and maintainers.
 
@@ -112,6 +112,8 @@ Player order is randomized at the start of a round in the games that use turn or
 
 ### 4.9 Song Guess — “ทายเพลงให้ทัน”
 
+This game is temporarily hidden from the game selection screen.
+
 - **Players:** No roster is required; pass the device around the group.
 - **Prepare songs:** Paste a public YouTube or YouTube Music playlist link that can be embedded. The visible YouTube player stays at the minimum 200 × 200 px size; YouTube may show the current song information inside its player.
 - **How to play:** Select **เชื่อม playlist** (Connect playlist), wait for it to load, then select **เริ่มเกม** (Start game). The app shuffles tracks without repeats until the playlist is exhausted and plays each song from the beginning, looping until **เฉลยเพลง** (Reveal answer) is selected. Then select **เพลงถัดไป** (Next song).
@@ -161,7 +163,7 @@ Player order is randomized at the start of a round in the games that use turn or
 
 ## 1. PartyGame คืออะไร
 
-PartyGame คือเว็บไซต์รวมเกมปาร์ตี้ที่พัฒนาด้วย React 19 และ Vite 8 และปรับหน้าจอตามอุปกรณ์ได้ ปัจจุบันมีเกมเล่นได้ 9 เกม ผู้เล่นผลัดกันใช้โทรศัพท์ แท็บเล็ต หรือคอมพิวเตอร์เครื่องเดียวกัน ระบบยังไม่มีบัญชีผู้ใช้ ระบบจับคู่ผู้เล่นออนไลน์ หรือการซิงก์ข้อมูลระหว่างอุปกรณ์
+PartyGame คือเว็บไซต์รวมเกมปาร์ตี้ที่พัฒนาด้วย React 19 และ Vite 8 และปรับหน้าจอตามอุปกรณ์ได้ ปัจจุบันมีเกมเล่นได้ 8 เกม ผู้เล่นผลัดกันใช้โทรศัพท์ แท็บเล็ต หรือคอมพิวเตอร์เครื่องเดียวกัน ระบบยังไม่มีบัญชีผู้ใช้ ระบบจับคู่ผู้เล่นออนไลน์ หรือการซิงก์ข้อมูลระหว่างอุปกรณ์
 
 ตัวแอปในปัจจุบันแสดงผลเป็นภาษาไทย ส่วนเอกสารฉบับนี้อธิบายทั้งวิธีเล่นและโครงสร้างสำหรับผู้ดูแลโปรเจกต์
 
@@ -263,6 +265,8 @@ npm run preview
 - **เลือกได้ตามสะดวก:** ใช้เครื่องดื่มอะไรก็ได้ และข้ามคำสั่งได้ทุกคน
 
 ### 4.9 ทายเพลงให้ทัน (Song Guess)
+
+This game is temporarily hidden from the game selection screen.
 
 - **จำนวนผู้เล่น:** ไม่ต้องกรอกรายชื่อ ให้ส่งอุปกรณ์วนกันในวง
 - **เตรียมเพลง:** วางลิงก์ YouTube หรือ YouTube Music playlist แบบสาธารณะที่ฝังในเว็บได้ เกมสุ่มเพลงโดยไม่ซ้ำจนกว่าจะครบรายการ และแสดง YouTube player ขนาดต่ำสุด 200 × 200 พิกเซล

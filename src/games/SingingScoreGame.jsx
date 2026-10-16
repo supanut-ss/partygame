@@ -115,6 +115,36 @@ function ArrowIcon() {
   );
 }
 
+function RecordedAudioPlayer({ src, label }) {
+  const audioRef = useRef(null);
+  const [isReady, setIsReady] = useState(false);
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    setIsReady(false);
+    setHasError(false);
+    audioRef.current?.load();
+  }, [src]);
+
+  return (
+    <>
+      {!isReady && <span role="status">{hasError ? 'เปิดคลิปเสียงไม่ได้' : 'กำลังเตรียมคลิปเสียง…'}</span>}
+      <audio
+        ref={audioRef}
+        controls
+        preload="auto"
+        src={src}
+        aria-label={label}
+        onCanPlay={() => setIsReady(true)}
+        onError={() => setHasError(true)}
+        style={isReady ? undefined : { display: 'none' }}
+      >
+        เบราว์เซอร์นี้ไม่รองรับการเล่นเสียง
+      </audio>
+    </>
+  );
+}
+
 function SingingScoreGame() {
   const [players, setPlayers] = useState(loadInitialPlayers);
   const [nextPlayerId, setNextPlayerId] = useState(() => (
@@ -631,10 +661,8 @@ function SingingScoreGame() {
                   )}
                   {recordedAudioUrl && (
                     <div className="singing-recording-playback">
-                      <label htmlFor="singing-recording-preview">ฟังเสียงที่บันทึกไว้</label>
-                      <audio id="singing-recording-preview" controls preload="metadata" src={recordedAudioUrl}>
-                        เบราว์เซอร์นี้ไม่รองรับการเล่นเสียง
-                      </audio>
+                      <strong>ฟังเสียงที่บันทึกไว้</strong>
+                      <RecordedAudioPlayer src={recordedAudioUrl} label="ฟังเสียงที่บันทึกไว้" />
                     </div>
                   )}
                   {recordingError && <p className="singing-score-warning" role="status">{recordingError}</p>}
@@ -698,9 +726,7 @@ function SingingScoreGame() {
                         {performance.audioUrl ? (
                           <details className="singing-result-recording">
                             <summary>ฟังคลิปของทีม</summary>
-                            <audio controls preload="none" src={performance.audioUrl} aria-label={'เสียงร้องของ ' + team.name + ' รอบ ' + performance.round}>
-                              เบราว์เซอร์นี้ไม่รองรับการเล่นเสียง
-                            </audio>
+                            <RecordedAudioPlayer src={performance.audioUrl} label={'เสียงร้องของ ' + team.name + ' รอบ ' + performance.round} />
                           </details>
                         ) : <small>ไม่มีคลิปเสียง</small>}
                       </div>

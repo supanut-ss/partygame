@@ -104,24 +104,24 @@ export function calculateSingingScore(frames) {
     return neighbors.length >= 3 ? [Math.abs(pitchByIndex.get(frame.index) - median(neighbors))] : [];
   }).sort((first, second) => first - second);
   const pitchJitter = percentile(localPitchDeviations, 0.75);
-  const pitchStability = localPitchDeviations.length === 0 ? 0 : clamp(1 - pitchJitter / 1.5);
-  const baseScore = Math.round(((toneQuality + pitchStability) / 2) * 100);
+  const pitchStability = localPitchDeviations.length === 0 ? 0 : clamp(1 - pitchJitter / 3);
+  const baseScore = Math.round(55 + ((toneQuality + pitchStability) / 2) * 45);
   const judgments = [];
 
-  if (toneQuality >= 0.86) {
-    judgments.push({ type: 'bonus', points: 5, reason: 'โทนเสียงมีความเป็นคาบชัด' });
-  } else if (toneQuality < 0.55) {
-    judgments.push({ type: 'penalty', points: -5, reason: 'โทนเสียงมีความเป็นคาบต่ำ' });
+  if (toneQuality >= 0.78) {
+    judgments.push({ type: 'bonus', points: 4, reason: 'โทนเสียงมีความเป็นคาบชัด' });
+  } else if (toneQuality < 0.48) {
+    judgments.push({ type: 'penalty', points: -2, reason: 'โทนเสียงมีความเป็นคาบต่ำ' });
   }
 
-  if (pitchStability >= 0.86) {
-    judgments.push({ type: 'bonus', points: 5, reason: 'ควบคุมระดับโน้ตได้สม่ำเสมอ' });
-  } else if (pitchStability < 0.55) {
-    judgments.push({ type: 'penalty', points: -5, reason: 'ระดับโน้ตแกว่งมาก' });
+  if (pitchStability >= 0.78) {
+    judgments.push({ type: 'bonus', points: 4, reason: 'ควบคุมระดับโน้ตได้สม่ำเสมอ' });
+  } else if (pitchStability < 0.4) {
+    judgments.push({ type: 'penalty', points: -2, reason: 'ระดับโน้ตแกว่งมาก' });
   }
 
-  if (toneQuality >= 0.8 && pitchStability >= 0.8) {
-    judgments.push({ type: 'bonus', points: 5, reason: 'โทนเสียงและโน้ตนิ่งต่อเนื่อง' });
+  if (toneQuality >= 0.72 && pitchStability >= 0.72) {
+    judgments.push({ type: 'bonus', points: 4, reason: 'โทนเสียงและโน้ตนิ่งต่อเนื่อง' });
   }
 
   const adjustment = judgments.reduce((total, judgment) => total + judgment.points, 0);
